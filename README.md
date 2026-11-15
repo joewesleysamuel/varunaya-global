@@ -4,6 +4,16 @@ A single-page, Apple-style product page for Varunaya Global. Bright paper white 
 
 Stack: Vite, vanilla TypeScript, GSAP with ScrollTrigger, Lenis. No UI frameworks, no CSS libraries, no WebGL at runtime. The motion comes from pre-rendered frame sequences, the same technique Apple uses on its product pages, so the bottle looks like a photograph and the page stays light.
 
+## Versions
+
+Each client-facing version is saved as its own branch on GitHub. `main` is always what is live at https://varunaya.joewesleysamuel.com.
+
+| Version | Branch | Commit | Date | Notes |
+| --- | --- | --- | --- | --- |
+| demo-1 | `demo-1` | `3305cc8` | 2026-11-15 | First look for the client. White layout with charcoal bands, black Obelisk bottle, scroll animations, placeholder copy. |
+
+To put a saved version back live, merge or reset `main` to its branch and push; the site redeploys in about a minute. Saved branches are never changed after they are created.
+
 ## Run
 
 ```bash
