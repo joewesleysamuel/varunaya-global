@@ -357,15 +357,19 @@ for _ in range(26):
 
 # The flat shore stone the bottle stands on.
 STONE = Vector((2.2, -5.4, 0))
-stone = place_rock(STONE.x, STONE.y, 0.95, flat=0.26, rot=(0, 0, 0.4))
-stone.location.z = height_at(STONE.x, STONE.y) + 0.05
-STONE_TOP = Vector((STONE.x, STONE.y, stone.location.z + 0.95 * 0.26 * 1.05))
+stone = place_rock(STONE.x, STONE.y, 0.95, flat=0.17, rot=(0, 0, 0.4))
+stone.location.z = height_at(STONE.x, STONE.y) + 0.04
+# Measure the real top of the stone with a ray, so the bottle stands on it.
+bpy.context.view_layer.update()
+hit, loc, *_ = scene.ray_cast(bpy.context.evaluated_depsgraph_get(), Vector((STONE.x, STONE.y, 50)), Vector((0, 0, -1)))
+STONE_TOP = Vector(loc) if hit else Vector((STONE.x, STONE.y, stone.location.z + 0.17))
+print(f"[valley] stone top {tuple(round(c, 3) for c in STONE_TOP)} hit={hit}", flush=True)
 
 # Pine and deodar edges: simple layered cones, read as dark silhouettes.
 pm_, pnt, pb = node_mat("Pine")
 pb.inputs["Base Color"].default_value = (0.006, 0.009, 0.007, 1)
 pb.inputs["Roughness"].default_value = 0.95
-add_haze(pnt, pb, amount=0.28)
+add_haze(pnt, pb, amount=0.1)
 tree_mesh = None
 tiers = 8
 for k in range(tiers):
@@ -459,7 +463,7 @@ if args.bottle and os.path.exists(args.bottle):
     if bottle_root:
         s = 0.16
         bottle_root.scale = (s, s, s)
-        bottle_root.location = (STONE_TOP.x, STONE_TOP.y, STONE_TOP.z + 1.2 * s)
+        bottle_root.location = (STONE_TOP.x, STONE_TOP.y, STONE_TOP.z - 0.004)  # model origin is its base
         bottle_root.rotation_euler = (0, 0, -0.5)
         bottle_root.hide_render = True
 
@@ -518,13 +522,16 @@ STILL = Vector((7.5, 16, 0))
 BESIDE = Vector((STONE_TOP.x - 0.75, STONE_TOP.y + 0.1, STONE_TOP.z + 0.15))
 
 SHOTS = {
-    "master": dict(res=(2560, 1440), loc=(0.6, -10.5, 1.85), target=(3.0, 80, 12.0), lens=20),
-    "mobile": dict(res=(1080, 1920), loc=(0.8, -11.5, 2.2), target=(2.5, 70, 13), lens=20),
+    # Framed so every marker sits above the headline block (bottom-left) and the
+    # summit clears the nav: 13 mm, axis tilted 1.2 degrees down.
+    "master": dict(res=(2560, 1440), loc=(0.6, -10.5, 1.85), target=(3.0, 80, -0.05), lens=13),
+    # Mobile: valley in the upper half, the text sits over the near shore.
+    "mobile": dict(res=(1080, 1920), loc=(0.8, -11.5, 2.2), target=(2.5, 70, -13.6), lens=14),
     "peak": dict(res=(1920, 1080), loc=(-2, -6, 3.5), target=tuple(SUMMIT + Vector((0, 0, -4))), lens=180),
     "thaw": dict(res=(1920, 1080), loc=tuple(TIP + Vector((7, -14, 4.5))), target=tuple(TIP + Vector((0, 4, 2))), lens=55),
     "stone": dict(res=(1920, 1080), loc=tuple(STONES + Vector((2.6, -5.5, 0.9))), target=tuple(STONES + Vector((-1, 4, -0.2))), lens=24),
     "stillness": dict(res=(1920, 1080), loc=(-1.5, -3.5, 0.32), target=(4, 60, 8), lens=35),
-    "vessel": dict(res=(1920, 1080), loc=tuple(STONE_TOP + Vector((-0.55, -2.3, 0.22))), target=tuple(STONE_TOP + Vector((0.0, 0, 0.2))), lens=55, dof=True),
+    "vessel": dict(res=(1920, 1080), loc=tuple(STONE_TOP + Vector((-0.45, -1.55, 0.2))), target=tuple(STONE_TOP + Vector((0.0, 0, 0.19))), lens=60, dof=True),
 }
 
 cam_data = bpy.data.cameras.new("Camera")
@@ -567,13 +574,16 @@ for frame in ("master", "mobile"):
         "thaw": project(TIP),
         "stone": project(STONES),
         "stillness": project(STILL),
-        "vessel": project(BESIDE),
+        # On mobile the bottle is hidden and marker 05 sits on the far shore line.
+        "vessel": project(BESIDE if frame == "master" else Vector((STONE.x + 2.5, 8.0, 0.2))),
         "bottleBase": project(STONE_TOP),
         "frame": list(SHOTS[frame]["res"]),
     }
 with open(os.path.join(args.out, "markers.json"), "w") as f:
     json.dump(markers, f, indent=2)
 print("[valley] markers", json.dumps(markers), flush=True)
+if args.shots == "none":  # projection only, no render
+    raise SystemExit(0)
 
 # ----------------------------------------------------------------------------
 # Render

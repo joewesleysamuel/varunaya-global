@@ -1,0 +1,843 @@
+/* ==========================================================================
+   "The Descent" hero. Silver Hour palette, Instrument Serif + Manrope.
+   ========================================================================== */
+.dx {
+  --ink: #0b0c0e;
+  --graphite: #1c1f23;
+  --slate: #8a9098; /* secondary text: lifted from #5A6068 to keep 4.5:1 on the darkened hero */
+  --silver: #c9cdd2;
+  --mist: #eef0f2;
+  --snow: #ffffff;
+  --glass: rgba(14, 16, 19, 0.38);
+  --hairline: rgba(255, 255, 255, 0.22);
+  --grade: grayscale(0.82) contrast(1.06) brightness(0.94);
+  --serif: 'Instrument Serif', 'Times New Roman', serif;
+  --sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  position: relative;
+  height: 100svh;
+  min-height: 680px;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--mist);
+  font-family: var(--sans);
+  isolation: isolate;
+}
+
+/* Scene: zoom target > breathing > frame (sized to the cover crop by JS) */
+.dx-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.dx-breathe {
+  position: absolute;
+  inset: 0;
+  animation: dx-breathe 40s ease-in-out infinite alternate;
+}
+@keyframes dx-breathe {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.04);
+  }
+}
+.dx-frame {
+  position: absolute;
+}
+.dx-par {
+  position: absolute;
+  inset: 0;
+}
+.dx-poster,
+.dx-master {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.dx-graded {
+  filter: var(--grade);
+}
+.dx-master {
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+}
+.dx-master.is-ready {
+  opacity: 1;
+}
+
+/* Mist: screen-blended over the scene */
+.dx-mistwrap {
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.dx-mist,
+.dx-mistvideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.dx-mistvideo {
+  display: none;
+}
+.dx-mistwrap.has-video .dx-mistvideo {
+  display: block;
+}
+.dx-mistwrap.has-video .dx-mist {
+  display: none;
+}
+
+/* Bottle on the shore stone */
+.dx-bottle {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+}
+.dx-bottle[hidden] {
+  display: none;
+}
+.dx-bottle__img {
+  display: block;
+  height: 100%;
+  width: auto;
+  filter: var(--grade) drop-shadow(0 0.4vh 0.6vh rgba(0, 0, 0, 0.55));
+}
+.dx-bottle::before {
+  /* soft contact shadow */
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -1.2%;
+  height: 4%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.7), transparent);
+  filter: blur(3px);
+}
+.dx-bottle__reflection {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  height: 100%;
+  width: auto;
+  transform: scaleY(-1);
+  transform-origin: top;
+  opacity: 0.18;
+  filter: var(--grade) blur(3px);
+  -webkit-mask-image: linear-gradient(to top, transparent 55%, #000 100%);
+  mask-image: linear-gradient(to top, transparent 55%, #000 100%);
+}
+.dx-bottle__sweep {
+  position: absolute;
+  inset: 0 0 4% 0;
+  overflow: hidden;
+  -webkit-mask-image: var(--bottle-mask);
+  mask-image: var(--bottle-mask);
+  -webkit-mask-size: auto 100%;
+  mask-size: auto 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+.dx-bottle__sweep::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  width: 30%;
+  left: -40%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  animation: dx-sweep 9s ease-in-out infinite;
+}
+@keyframes dx-sweep {
+  0%,
+  70% {
+    left: -40%;
+  }
+  100% {
+    left: 120%;
+  }
+}
+
+/* Markers: pinned to the frame, they zoom and breathe with it */
+.dx-markers {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+.dx-marker {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  color: var(--mist);
+}
+.dx-marker__ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--silver);
+  border-radius: 50%;
+  transition: transform 0.5s var(--ease);
+}
+.dx-marker__dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: var(--snow);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+}
+.dx-marker__ripple {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: dx-ripple 3.2s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+  pointer-events: none;
+}
+.dx-marker__ripple + .dx-marker__ripple {
+  animation-delay: 1.6s;
+}
+@keyframes dx-ripple {
+  from {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(7);
+    opacity: 0;
+  }
+}
+.dx-marker.is-hint .dx-marker__ripple {
+  animation-duration: 4.4s;
+  border-color: #fff;
+  border-width: 1.5px;
+}
+.dx-marker__label {
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translate(-6px, -50%);
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mist);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.4s var(--ease),
+    transform 0.4s var(--ease);
+}
+.dx-marker:hover .dx-marker__ring,
+.dx-marker:focus-visible .dx-marker__ring {
+  transform: scale(1.25);
+}
+.dx-marker:hover .dx-marker__label,
+.dx-marker:focus-visible .dx-marker__label {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+.dx-marker:focus-visible {
+  outline: 2px solid var(--snow);
+  outline-offset: 6px;
+}
+.dx-edit .dx-marker {
+  cursor: grab;
+  touch-action: none;
+}
+
+/* Chapter close ups */
+.dx-chapters {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.dx-ch {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+.dx-ch img,
+.dx-ch video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: var(--grade);
+}
+
+/* Vignette and grain */
+.dx-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, transparent 75%, var(--ink) 100%),
+    radial-gradient(120% 95% at 50% 45%, transparent 45%, rgba(11, 12, 14, 0.65) 100%),
+    linear-gradient(to bottom, rgba(11, 12, 14, 0.45) 0%, transparent 18%);
+}
+.dx-grain {
+  position: absolute;
+  inset: -50%;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: dx-grain 0.9s steps(6) infinite;
+}
+@keyframes dx-grain {
+  0% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-3%, 2%);
+  }
+  66% {
+    transform: translate(2%, -3%);
+  }
+  100% {
+    transform: translate(-1%, 1%);
+  }
+}
+
+/* UI */
+.dx-nav,
+.dx-head,
+.dx-rail,
+.dx-index,
+.dx-soundwrap,
+.dx-card,
+.dx-hint {
+  z-index: 5;
+}
+.dx-nav {
+  position: absolute;
+  inset: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 1.75rem 4vw;
+}
+.dx-logo {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  color: var(--snow);
+  margin-right: auto;
+}
+.dx-links {
+  display: flex;
+  gap: 2rem;
+}
+.dx-links a {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--mist);
+  opacity: 0.86;
+  transition: opacity 0.3s var(--ease);
+}
+.dx-links a:hover {
+  opacity: 1;
+}
+.dx-enquire,
+.dx-begin {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0.55rem 1.3rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  color: var(--mist);
+  background: transparent;
+  font: 500 14px/1 var(--sans);
+  cursor: pointer;
+  transition:
+    background-color 0.4s var(--ease),
+    color 0.4s var(--ease),
+    border-color 0.4s var(--ease);
+}
+.dx-enquire:hover,
+.dx-enquire:focus-visible,
+.dx-begin:hover,
+.dx-begin:focus-visible {
+  background: var(--snow);
+  color: var(--ink);
+  border-color: var(--snow);
+}
+.dx :focus-visible {
+  outline: 2px solid var(--snow);
+  outline-offset: 4px;
+}
+
+.dx-head {
+  position: absolute;
+  left: 8vw;
+  bottom: 14vh;
+  max-width: min(760px, 84vw);
+}
+.dx-eyebrow,
+.dx-rail__label,
+.dx-card__label {
+  font: 500 11.5px/1.4 var(--sans);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+.dx-title {
+  margin-top: 1.1rem;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(48px, 7vw, 112px);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: var(--snow);
+}
+.dx-sub {
+  margin-top: 1.4rem;
+  max-width: 420px;
+  font: 300 17px/1.55 var(--sans);
+  color: var(--silver);
+}
+.dx-actions {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+.dx-begin {
+  min-height: 48px;
+  padding: 0.8rem 1.6rem;
+  font-size: 15px;
+}
+.dx-link {
+  font: 400 15px/1 var(--sans);
+  color: var(--mist);
+  padding: 0.4rem 0;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+  transition: background-size 0.6s var(--ease);
+}
+.dx-link:hover,
+.dx-link:focus-visible {
+  background-size: 0 1px;
+  background-position: 100% 100%;
+}
+
+/* Altitude rail */
+.dx-rail {
+  position: absolute;
+  left: 3vw;
+  top: 30vh;
+  height: 40vh;
+  display: grid;
+  grid-template-columns: 1px auto;
+  grid-template-rows: auto auto 1fr;
+  column-gap: 1.1rem;
+  pointer-events: none;
+}
+.dx-rail__label,
+.dx-rail__value {
+  grid-column: 2;
+}
+.dx-rail__value {
+  margin-top: 0.3rem;
+  font: 300 28px/1.1 var(--sans);
+  font-variant-numeric: tabular-nums;
+  color: var(--snow);
+  white-space: nowrap;
+}
+.dx-rail__value.is-overview {
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+.dx-rail__line {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  position: relative;
+  background: var(--hairline);
+}
+.dx-rail__tick {
+  position: absolute;
+  left: -4px;
+  width: 9px;
+  height: 1px;
+  background: var(--silver);
+}
+.dx-rail__dot {
+  position: absolute;
+  left: -3.5px;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--snow);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+  opacity: 0;
+}
+.dx.no-altitudes .dx-rail {
+  display: none;
+}
+
+/* Chapter index */
+.dx-index {
+  position: absolute;
+  left: 50%;
+  bottom: 4vh;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dx-index button {
+  position: relative;
+  padding: 0.5rem 0;
+  border: 0;
+  background: none;
+  font: 500 11px/1 var(--sans);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--slate);
+  cursor: pointer;
+  transition: color 0.4s var(--ease);
+}
+.dx-index button span {
+  margin-right: 0.5em;
+}
+.dx-index button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--snow);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.9s var(--ease);
+}
+.dx-index button:hover,
+.dx-index button[aria-current='step'] {
+  color: var(--snow);
+}
+.dx-index button[aria-current='step']::after {
+  transform: scaleX(1);
+}
+
+/* Sound toggle */
+.dx-soundwrap {
+  position: absolute;
+  right: 4vw;
+  bottom: 4vh;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.dx-sound__label {
+  font: 500 11px/1 var(--sans);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+.dx-sound {
+  width: 52px;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+.dx-sound span {
+  width: 1.5px;
+  height: 3px;
+  background: var(--mist);
+  border-radius: 1px;
+  transition: height 0.6s var(--ease);
+}
+.dx-sound[aria-pressed='true'] span {
+  animation: dx-wave 2s ease-in-out infinite alternate;
+}
+.dx-sound[aria-pressed='true'] span:nth-child(1) {
+  animation-duration: 1.6s;
+}
+.dx-sound[aria-pressed='true'] span:nth-child(2) {
+  animation-duration: 2.2s;
+}
+.dx-sound[aria-pressed='true'] span:nth-child(3) {
+  animation-duration: 1.9s;
+}
+.dx-sound[aria-pressed='true'] span:nth-child(4) {
+  animation-duration: 2.4s;
+}
+@keyframes dx-wave {
+  from {
+    height: 4px;
+  }
+  to {
+    height: 16px;
+  }
+}
+.dx-hint {
+  position: absolute;
+  right: 4vw;
+  bottom: calc(4vh + 64px);
+  font: 400 13px/1 var(--sans);
+  color: var(--mist);
+  opacity: 0.85;
+}
+
+/* Chapter card */
+.dx-card {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  transform: translate(-50%, -50%);
+  width: min(620px, calc(100% - 32px));
+  padding: 40px 56px;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  backdrop-filter: blur(14px) saturate(1.1);
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  text-align: center;
+}
+.dx-card[hidden] {
+  display: none;
+}
+.dx-card__label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--mist);
+}
+.dx-card__label::before,
+.dx-card__label::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--hairline);
+}
+.dx-card__poem {
+  margin-top: 1.5rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1.25;
+  color: var(--snow);
+  text-wrap: balance;
+}
+.dx-word {
+  display: inline-block;
+  white-space: pre;
+}
+.dx-discover {
+  margin-top: 1.5rem;
+  padding: 0.65rem 1.3rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: none;
+  color: var(--mist);
+  font: 500 13px/1 var(--sans);
+  cursor: pointer;
+  transition:
+    background-color 0.4s var(--ease),
+    color 0.4s var(--ease);
+}
+.dx-discover:hover {
+  background: var(--snow);
+  color: var(--ink);
+}
+.dx-card__row {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.dx-return {
+  padding: 0.4rem 0;
+  border: 0;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+  color: var(--mist);
+  font: 400 14px/1 var(--sans);
+  cursor: pointer;
+}
+.dx-card__arrows {
+  display: flex;
+  gap: 0.6rem;
+}
+.dx-arrow {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: none;
+  color: var(--mist);
+  font-size: 16px;
+  cursor: pointer;
+}
+.dx-arrow span {
+  display: inline-block;
+  transition: transform 0.4s var(--ease);
+}
+.dx-prev:hover span {
+  transform: translateX(-3px);
+}
+.dx-next:hover span {
+  transform: translateX(3px);
+}
+
+/* While the hero is on screen the light site header steps aside */
+.site-header {
+  transition: transform 0.6s var(--ease, ease);
+}
+.hero-in-view .site-header {
+  transform: translateY(-100%);
+}
+
+/* ==========================================================================
+   Mobile
+   ========================================================================== */
+@media (max-width: 767px) {
+  .dx-links {
+    display: none;
+  }
+  .dx-nav {
+    padding: 1.25rem 24px;
+  }
+  .dx-head {
+    left: 24px;
+    right: 24px;
+    bottom: 13vh;
+  }
+  .dx-title {
+    font-size: clamp(44px, 12vw, 64px);
+  }
+  .dx-sub {
+    font-size: 15.5px;
+  }
+  .dx-rail {
+    left: 24px;
+    right: 24px;
+    top: 4.6rem;
+    height: auto;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 12px;
+    align-items: end;
+    column-gap: 1rem;
+  }
+  .dx-rail__label {
+    display: none;
+  }
+  .dx-rail__value {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 20px;
+  }
+  .dx-rail__line {
+    grid-column: 2;
+    grid-row: 1;
+    height: 1px;
+    align-self: center;
+  }
+  .dx-rail__tick {
+    top: -4px;
+    left: auto;
+    width: 1px;
+    height: 9px;
+  }
+  .dx-rail__dot {
+    top: 0;
+    left: 0;
+    margin: -3.5px 0 0 -4px;
+  }
+  .dx-index {
+    display: none;
+  }
+  .dx-sound {
+    width: 44px;
+    height: 44px;
+  }
+  .dx-soundwrap {
+    right: 16px;
+    bottom: 16px;
+  }
+  .dx-sound__label {
+    display: none;
+  }
+  .dx-card {
+    top: auto;
+    bottom: 76px; /* leaves the sound toggle clear below the sheet */
+    transform: translateX(-50%);
+    padding: 26px 22px 20px;
+  }
+  .dx-card__label {
+    letter-spacing: 0.18em;
+    gap: 10px;
+    font-size: 10.5px;
+  }
+  .dx-card__label::before,
+  .dx-card__label::after {
+    width: 14px;
+  }
+  .dx-card__poem {
+    font-size: 24px;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion: no breathing, ripples or grain movement
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .dx-breathe,
+  .dx-grain,
+  .dx-bottle__sweep::after,
+  .dx-marker__ripple {
+    animation: none;
+  }
+  .dx-marker__ripple {
+    opacity: 0;
+  }
+  .dx-sound[aria-pressed='true'] span {
+    animation: none;
+    height: 10px;
+  }
+}

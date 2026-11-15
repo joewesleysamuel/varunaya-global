@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#fbfbfd" />
+    <meta name="theme-color" content="#0b0c0e" />
     <!-- Client preview: keep it out of search results. Remove both this and the robots.txt Disallow at launch. -->
     <meta name="robots" content="noindex, nofollow" />
     <title>Varunaya Global | Premium packaged drinking water and custom bottles</title>
@@ -12,8 +12,7 @@
       content="Varunaya Global makes premium packaged drinking water and custom bottles for hotels, cafes and brands."
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" as="image" href="/sequence/turntable/frame_0000.webp" fetchpriority="high" />
-  </head>
+      </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
@@ -30,33 +29,80 @@
     </header>
 
     <main id="main">
-      <!-- 1. Hero: sticky stage, the bottle turns as you scroll -->
-      <section class="hero" id="top" aria-labelledby="hero-title">
-        <div class="hero__sticky">
-          <p class="wordmark" aria-hidden="true"><span class="wordmark__inner">varunaya</span></p>
-          <div class="hero__head">
-            <h1 class="hero__title reveal" id="hero-title">
-              <span class="line"><span>Pure water,</span></span>
-              <span class="line"><span>held in light.</span></span>
-            </h1>
+      <!-- 1. Hero: "The Descent". Built by src/hero/Hero.ts from src/hero/config.ts -->
+      <section class="dx" id="top" aria-labelledby="dx-title" data-hero>
+        <div class="dx-scene" aria-hidden="true">
+          <div class="dx-breathe">
+            <div class="dx-frame">
+              <div class="dx-par" data-depth="video">
+                <img class="dx-poster dx-graded" alt="" fetchpriority="high" decoding="async" />
+                <video class="dx-master dx-graded" muted playsinline loop preload="none"></video>
+                <div class="dx-bottle">
+                  <img class="dx-bottle__img" alt="" decoding="async" />
+                  <img class="dx-bottle__reflection" alt="" decoding="async" />
+                  <span class="dx-bottle__sweep"></span>
+                </div>
+              </div>
+              <div class="dx-par dx-mistwrap" data-depth="mist">
+                <canvas class="dx-mist"></canvas>
+                <video class="dx-mistvideo" muted playsinline loop preload="none"></video>
+              </div>
+            </div>
           </div>
-          <div class="stage stage--hero">
-            <img
-              class="stage__poster"
-              src="/sequence/turntable/frame_0000.webp"
-              width="800"
-              height="1200"
-              alt="The Varunaya Global bottle: a tall square flacon in satin black glass with a polished black chrome cap"
-              fetchpriority="high"
-            />
-            <canvas class="stage__canvas" data-sequence="/sequence/turntable" aria-hidden="true"></canvas>
-            <div class="loader" aria-hidden="true"><span></span></div>
+        </div>
+        <div class="dx-markers" role="group" aria-label="Five altitudes on the mountain"></div>
+        <div class="dx-chapters" aria-hidden="true"></div>
+        <div class="dx-vignette" aria-hidden="true"></div>
+        <div class="dx-grain" aria-hidden="true"></div>
+
+        <nav class="dx-nav" aria-label="Hero">
+          <a class="dx-logo" href="#top" aria-label="Varunaya Global, home">Varunaya Global</a>
+          <div class="dx-links">
+            <a href="#story">The Source</a>
+            <a href="#process">Our Water</a>
+            <a href="#range">Custom Bottles</a>
+            <a href="#story" data-placeholder>Sustainability</a>
+            <a href="#contact">Contact</a>
           </div>
-          <p class="note note--left" data-note>Satin black glass,<br />cut square.</p>
-          <p class="note note--right" data-note>A cap in polished<br />black chrome.</p>
-          <div class="hero__foot">
-            <p class="hero__lede">Packaged drinking water and custom bottles for hotels, cafes and brands.</p>
-            <a class="btn" href="#contact">Request a quote</a>
+          <a class="dx-enquire" href="#contact">Enquire</a>
+        </nav>
+
+        <div class="dx-head">
+          <p class="dx-eyebrow">Varunaya <span aria-hidden="true">&nbsp;&middot;&nbsp;</span> The Descent</p>
+          <h1 class="dx-title" id="dx-title">Drawn from silence.</h1>
+          <p class="dx-sub">Five altitudes. One drop of water. Tap a point on the mountain and follow it down.</p>
+          <div class="dx-actions">
+            <button class="dx-begin" type="button">Begin the descent</button>
+            <a class="dx-link" href="#range">Explore our bottles</a>
+          </div>
+        </div>
+
+        <div class="dx-rail" aria-hidden="true">
+          <p class="dx-rail__label">Altitude</p>
+          <p class="dx-rail__value is-overview">Above the valley</p>
+          <div class="dx-rail__line"><span class="dx-rail__dot"></span></div>
+        </div>
+
+        <ol class="dx-index" aria-label="Chapters"></ol>
+
+        <div class="dx-soundwrap">
+          <span class="dx-sound__label" aria-hidden="true">Sound off</span>
+          <button class="dx-sound" type="button" aria-pressed="false" aria-label="Turn on river sound">
+            <span></span><span></span><span></span><span></span>
+          </button>
+        </div>
+        <p class="dx-hint" hidden>Tap anywhere for river sound</p>
+
+        <div class="dx-card" role="region" aria-live="polite" aria-label="Chapter" hidden>
+          <p class="dx-card__label"></p>
+          <p class="dx-card__poem"></p>
+          <button class="dx-discover" type="button" hidden>Discover Varunaya</button>
+          <div class="dx-card__row">
+            <button class="dx-return" type="button">Return to the mountain</button>
+            <div class="dx-card__arrows">
+              <button class="dx-arrow dx-prev" type="button" aria-label="Previous chapter"><span aria-hidden="true">&larr;</span></button>
+              <button class="dx-arrow dx-next" type="button" aria-label="Next chapter"><span aria-hidden="true">&rarr;</span></button>
+            </div>
           </div>
         </div>
       </section>
