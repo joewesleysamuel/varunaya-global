@@ -16,7 +16,65 @@ Each version is saved as its own branch on GitHub.
 | Version | Branch | Status | Date | Notes |
 | --- | --- | --- | --- | --- |
 | Version 1 | `version-1` | Live (shared with the client) | 2026-11-15 | First look. White layout with charcoal bands, black Obelisk bottle rendered in Blender, scroll animations, placeholder copy. |
-| Version 2 | `version-2` | In progress (private) | | |
+| Version 2 | `version-2` | In progress (private) | | New hero "The Descent": five altitudes with zoom transitions, altitude rail, chapter poems and river ambience. Placeholder plates and sound until footage arrives. |
+
+## Hero: "The Descent" (Version 2)
+
+The hero tells the journey of one drop of water in five altitudes: Peak, Thaw, Stone, Stillness, Vessel. Code: `src/hero/` (`config.ts`, `Hero.ts`, `audio.ts`, `mist.ts`, `hero.css`). Every tunable value (copy, altitudes, marker positions, file paths, zoom, timings, volumes, `showBottle`, `showAltitudes`, grade) lives in `src/hero/config.ts`.
+
+### What is placeholder right now
+
+Realism has to come from real or generated footage; code cannot fake it. Until the clips exist:
+
+- Images: the master shot, mobile shot and five close ups are stills rendered in Blender from a procedural valley (`render/valley.py`). They are cohesive and framed for the markers, but they are not photographs. Replace them.
+- Motion: the page adds breathing, zoom, settle and a built-in canvas mist over the stills. Real clips replace the stills automatically once their paths are set.
+- Sound: every layer uses a quiet ambience generated in the browser (filtered noise, drips, lapping, a pour). Replace with licensed recordings.
+- Bottle: the Obelisk concept render.
+
+### Asset files still needed
+
+Put files in `public/assets/hero/video/`, `public/assets/hero/audio/` and `public/assets/hero/img/`, then set their paths in `src/hero/config.ts` (replace `video: null` or `audio: null`).
+
+| File | Spec | Config slot |
+| --- | --- | --- |
+| `video/hero-master-desktop.mp4` + `.webm` | 16:9, 2560x1440, 24fps, 20 to 30s seamless loop, H.264 CRF 20 and VP9, no audio, under 12 MB, locked-off camera | `master.desktop.video` |
+| `video/hero-master-mobile.mp4` + `.webm` | 9:16, 1080x1920, same scene with peak, river and lake stacked, under 8 MB | `master.mobile.video` |
+| `img/hero-poster-desktop.webp`, `img/hero-poster-mobile.webp` | First frame of each master clip, under 250 KB (currently the Blender stills) | `master.*.poster` |
+| `video/chapter-01-peak.mp4` to `video/chapter-05-vessel.mp4` (+ `.webm`) | 16:9 close ups, 1920x1080, 10 to 15s seamless loops, under 5 MB each, plus 9:16 mobile versions | `chapters[n].media.*.video` |
+| `img/chapter-01-peak.webp` to `img/chapter-05-vessel.webp` | First frame of each close up (currently the Blender stills) | `chapters[n].media.*.poster` |
+| `video/mist-overlay.mp4` + `.webm` | White mist drifting on pure black, 1920x1080, 20s loop | `mistVideo` |
+| `audio/amb-base.mp3` | Slow, gentle distant mountain stream, very soft high wind; 60 to 90s seamless loop, 44.1 kHz stereo | `audio.base` |
+| `audio/amb-peak.mp3` | Thin cold wind across snow, faint ice creaks | `chapters[0].audio` |
+| `audio/amb-thaw.mp3` | Slow meltwater drips and a tiny trickle | `chapters[1].audio` |
+| `audio/amb-stone.mp3` | Water running softly over and between stones, close | `chapters[2].audio` |
+| `audio/amb-stillness.mp3` | Almost silent lake: faintest lapping, one distant bird | `chapters[3].audio` |
+| `audio/amb-vessel.mp3` | Soft water pouring into glass, then stillness | `chapters[4].audio` |
+| `img/bottle.webp` | Transparent image of the real bottle, standing, tightly cropped | `bottle.src` |
+
+Sound must stay calm: still water and slow flow, never a rushing river. Use licensed sources (Freesound CC0, Epidemic Sound, Artlist, or an AI sound effects tool). Colour footage is graded by the `grade` value (Silver Hour); set it to `'none'` to compare full colour.
+
+### Markers
+
+Positions are percentages of the media frame, so they stay on the landscape at any screen ratio. If new footage is framed differently, open the page with `?markers=edit`, drag each marker onto its spot, and paste the logged values into `config.ts`. The current values were projected from the 3D scene, and the framing keeps every marker clear of the headline block.
+
+### Notes for the client
+
+- Only state real altitudes or "Himalayan" in final copy if the water is sourced there. `showAltitudes: false` hides every number.
+- "Sustainability" in the hero nav has no section yet; it currently scrolls to The Source.
+- The nav uses the text wordmark in white; swap in a white logo file when one exists.
+- Fonts (Instrument Serif, Manrope) are the Google Fonts families, self-hosted through npm for speed and privacy.
+
+### Re-rendering the placeholder plates
+
+```bash
+python render/obelisk.py --shot none --save-blend out/obelisk.blend
+```
+
+```bash
+python render/valley.py --out out/valley --shots master,mobile,peak,thaw,stone,stillness,vessel --bottle out/obelisk.blend
+```
+
+`--shots none` only projects the markers (written to `markers.json`) without rendering.
 
 ## Run
 
