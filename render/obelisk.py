@@ -27,7 +27,7 @@ from mathutils import Vector
 # ----------------------------------------------------------------------------
 argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else sys.argv[1:]
 ap = argparse.ArgumentParser()
-ap.add_argument("--shot", default="test", choices=["test", "turntable", "dolly", "detail"])
+ap.add_argument("--shot", default="test", choices=["test", "turntable", "dolly", "detail", "none"])
 ap.add_argument("--out", default="out/test")
 ap.add_argument("--frames", default="0-0")
 ap.add_argument("--total", type=int, default=0, help="frames in the full shot (defaults to end of --frames + 1)")
@@ -36,6 +36,7 @@ ap.add_argument("--samples", type=int, default=96)
 ap.add_argument("--font", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts", "bricolage-800.ttf"))
 ap.add_argument("--font-light", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts", "bricolage-500.ttf"))
 ap.add_argument("--droplets", type=int, default=1400)
+ap.add_argument("--save-blend", default="", help="save the bottle scene to a .blend (used by render/valley.py)")
 args = ap.parse_args(argv)
 
 f0, f1 = (int(x) for x in args.frames.split("-"))
@@ -362,6 +363,12 @@ try:
     scene.view_settings.look = "AgX - Medium High Contrast"
 except TypeError:
     pass
+
+if args.save_blend:
+    bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(args.save_blend))
+    print(f"[obelisk] saved {args.save_blend}", flush=True)
+if args.shot == "none":
+    raise SystemExit(0)
 
 os.makedirs(args.out, exist_ok=True)
 for frame in range(f0, f1 + 1):
