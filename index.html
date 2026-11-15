@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fbfbfd" />
+    <!-- Client preview: keep it out of search results. Remove both this and the robots.txt Disallow at launch. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Varunaya Global | Premium packaged drinking water and custom bottles</title>
+    <meta
+      name="description"
+      content="Varunaya Global makes premium packaged drinking water and custom bottles for hotels, cafes and brands."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="image" href="/sequence/turntable/frame_0000.webp" fetchpriority="high" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="logo" href="#top" aria-label="Varunaya Global, back to top">Varunaya Global</a>
+        <nav class="nav" aria-label="Primary">
+          <a class="nav__link" href="#story">Story</a>
+          <a class="nav__link" href="#range">Range</a>
+          <a class="nav__link" href="#process">Process</a>
+          <a class="pill" href="#contact">Request a quote</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- 1. Hero: sticky stage, the bottle turns as you scroll -->
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero__sticky">
+          <p class="wordmark" aria-hidden="true"><span class="wordmark__inner">varunaya</span></p>
+          <div class="hero__head">
+            <h1 class="hero__title reveal" id="hero-title">
+              <span class="line"><span>Pure water,</span></span>
+              <span class="line"><span>held in light.</span></span>
+            </h1>
+          </div>
+          <div class="stage stage--hero">
+            <img
+              class="stage__poster"
+              src="/sequence/turntable/frame_0000.webp"
+              width="800"
+              height="1200"
+              alt="The Varunaya Global bottle: a tall square flacon in satin black glass with a polished black chrome cap"
+              fetchpriority="high"
+            />
+            <canvas class="stage__canvas" data-sequence="/sequence/turntable" aria-hidden="true"></canvas>
+            <div class="loader" aria-hidden="true"><span></span></div>
+          </div>
+          <p class="note note--left" data-note>Satin black glass,<br />cut square.</p>
+          <p class="note note--right" data-note>A cap in polished<br />black chrome.</p>
+          <div class="hero__foot">
+            <p class="hero__lede">Packaged drinking water and custom bottles for hotels, cafes and brands.</p>
+            <a class="btn" href="#contact">Request a quote</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Story -->
+      <section class="story band band--mist" id="story" aria-labelledby="story-title">
+        <figure class="story__media">
+          <img
+            src="/media/detail.webp"
+            width="1600"
+            height="1000"
+            loading="lazy"
+            decoding="async"
+            alt="Close view of the bottle shoulder with condensation beading on the satin black glass"
+          />
+        </figure>
+        <div class="story__copy">
+          <h2 class="title reveal" id="story-title">
+            <span class="line"><span>Clear at the source.</span></span>
+            <span class="line"><span>Sealed for the table.</span></span>
+          </h2>
+          <!-- PLACEHOLDER: replace with verified source, filtration and sealing details. -->
+          <p class="body" data-placeholder>
+            Our water is drawn from [source location], filtered through [filtration stages] and sealed on
+            [line type]. Nothing is added that does not belong. Every bottle leaves the plant the way it was filled.
+          </p>
+        </div>
+      </section>
+
+      <!-- 3. Marquee -->
+      <section class="marquee" aria-label="What we do">
+        <div class="marquee__track">
+          <ul class="marquee__group">
+            <li class="marquee__item">Packaged drinking water</li>
+            <li class="marquee__item">Private label</li>
+            <li class="marquee__item">Bulk supply</li>
+            <li class="marquee__item">Hotels and cafes</li>
+            <li class="marquee__item">Custom bottles</li>
+          </ul>
+          <ul class="marquee__group" aria-hidden="true">
+            <li class="marquee__item">Packaged drinking water</li>
+            <li class="marquee__item">Private label</li>
+            <li class="marquee__item">Bulk supply</li>
+            <li class="marquee__item">Hotels and cafes</li>
+            <li class="marquee__item">Custom bottles</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 4. Range: charcoal band -->
+      <section class="range band band--ink" id="range" aria-labelledby="range-title">
+        <div class="range__stage">
+          <div class="stage stage--range">
+            <canvas class="stage__canvas" data-sequence="/sequence/turntable" aria-hidden="true"></canvas>
+          </div>
+        </div>
+        <div class="range__copy">
+          <h2 class="title reveal" id="range-title">
+            <span class="line"><span>Three sizes.</span></span>
+            <span class="line"><span>One standard.</span></span>
+          </h2>
+          <div class="sizes" role="group" aria-label="Choose a bottle size">
+            <button class="size" type="button" data-size="330" aria-pressed="false">330 ml</button>
+            <button class="size" type="button" data-size="500" aria-pressed="true">500 ml</button>
+            <button class="size" type="button" data-size="1000" aria-pressed="false">1 litre</button>
+          </div>
+          <dl class="specs" aria-live="polite">
+            <div><dt>Volume</dt><dd data-spec="volume">500 ml</dd></div>
+            <div><dt>Suited to</dt><dd data-spec="use">Cafes, desks and travel</dd></div>
+            <div><dt>Case pack</dt><dd data-spec="pack" data-placeholder>[To be confirmed]</dd></div>
+            <div><dt>Custom label</dt><dd data-spec="label">Available</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- 5. Process: sticky push-in toward the cap -->
+      <section class="process band band--paper" id="process" aria-labelledby="process-title">
+        <div class="process__stage">
+          <div class="stage stage--process">
+            <canvas class="stage__canvas" data-sequence="/sequence/dolly" aria-hidden="true"></canvas>
+          </div>
+        </div>
+        <div class="process__copy">
+          <h2 class="title reveal" id="process-title">
+            <span class="line"><span>Four steps.</span></span>
+            <span class="line"><span>In this order.</span></span>
+          </h2>
+          <!-- PLACEHOLDER: step descriptions must be replaced with the verified process. -->
+          <ol class="steps">
+            <li class="step">
+              <span class="step__n" aria-hidden="true">01</span>
+              <h3>Source</h3>
+              <p data-placeholder>Water is drawn from [source type and location].</p>
+            </li>
+            <li class="step">
+              <span class="step__n" aria-hidden="true">02</span>
+              <h3>Filter</h3>
+              <p data-placeholder>It passes through [list each filtration stage].</p>
+            </li>
+            <li class="step">
+              <span class="step__n" aria-hidden="true">03</span>
+              <h3>Balance</h3>
+              <p data-placeholder>Minerals are set to [target profile] for a clean, even taste.</p>
+            </li>
+            <li class="step">
+              <span class="step__n" aria-hidden="true">04</span>
+              <h3>Seal</h3>
+              <p data-placeholder>Each bottle is filled and capped on [line and standard].</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 6. Contact: charcoal band -->
+      <section class="contact band band--ink" id="contact" aria-labelledby="contact-title">
+        <h2 class="contact__title reveal" id="contact-title">
+          <span class="line"><span>Your name,</span></span>
+          <span class="line"><span>on every table.</span></span>
+        </h2>
+        <!-- PLACEHOLDER: replace with the real enquiries address. -->
+        <a class="btn btn--light" href="mailto:hello@varunaya.example?subject=Quote%20request" data-placeholder>Request a quote</a>
+        <p class="contact__alt" data-placeholder>hello@varunaya.example</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p class="logo logo--small">Varunaya Global</p>
+      <!-- PLACEHOLDER: address, phone and certification details. -->
+      <address data-placeholder>
+        [Street address], [City]<br />
+        <a href="tel:+000000000000">[Phone number]</a>
+      </address>
+      <p data-placeholder>[Licence and certification numbers]</p>
+      <p>&copy; <span id="year">2026</span> Varunaya Global</p>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

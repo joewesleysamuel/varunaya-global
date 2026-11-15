@@ -1,0 +1,9 @@
+{
+  "frameCount": 60,
+  "width": 800,
+  "height": 1200,
+  "pattern": "frame_{index}.webp",
+  "small": "s/frame_{index}.webp",
+  "pad": 4,
+  "start": 0
+}
