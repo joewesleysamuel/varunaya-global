@@ -395,7 +395,7 @@ tree_src.hide_render = True
 placed = 0
 while placed < 1100:
     x = rng.uniform(-80, 80)
-    y = rng.uniform(-6, 95)
+    y = rng.uniform(8, 95)  # nothing right beside the wide lens
     if abs(x) < 15 + max(0, y) * 0.15:
         continue
     z = height_at(x, y)

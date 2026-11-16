@@ -45,7 +45,7 @@ export class Hero {
   private cardPoem!: HTMLElement;
   private discover!: HTMLButtonElement;
 
-  private readonly mq = window.matchMedia('(max-width: 767px)');
+  private readonly mq = window.matchMedia('(max-width: 767px), (orientation: portrait) and (max-width: 1100px)');
   private mode: Mode = this.mq.matches ? 'mobile' : 'desktop';
   private readonly chapters = C.chapters;
   private markers: HTMLButtonElement[] = [];

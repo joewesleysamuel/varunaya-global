@@ -87,7 +87,7 @@ export const heroConfig = {
       name: 'Peak',
       altitude: 5200,
       lines: ['Above the clouds, the years are kept in ice,', 'and time moves only when the sun allows.'],
-      marker: { desktop: [50.2, 14.5], mobile: [50.8, 19.5] },
+      marker: { desktop: [50.2, 17.0], mobile: [50.8, 19.5] },
       media: {
         desktop: { poster: `${IMG}/chapter-01-peak.webp`, video: null },
         mobile: { poster: `${IMG}/chapter-01-peak.webp`, video: null },
@@ -126,7 +126,7 @@ export const heroConfig = {
       name: 'Stillness',
       altitude: 2600,
       lines: ['Where the river slows to almost silence,', 'it learns to hold the light.'],
-      marker: { desktop: [58.4, 53.1], mobile: [65.4, 45.6] },
+      marker: { desktop: [51.5, 54.0], mobile: [65.4, 45.6] },
       media: {
         desktop: { poster: `${IMG}/chapter-04-stillness.webp`, video: null },
         mobile: { poster: `${IMG}/chapter-04-stillness.webp`, video: null },
@@ -139,7 +139,7 @@ export const heroConfig = {
       name: 'Vessel',
       altitude: 1800,
       lines: ['Sealed close to the source, untouched by hurry,', 'the mountain arrives in your hand.'],
-      marker: { desktop: [54.9, 62.3], mobile: [50.0, 47.8] },
+      marker: { desktop: [65.5, 61.5], mobile: [50.0, 47.8] },
       media: {
         desktop: { poster: `${IMG}/chapter-05-vessel.webp`, video: null },
         mobile: { poster: `${IMG}/chapter-05-vessel.webp`, video: null },
