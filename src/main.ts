@@ -30,7 +30,8 @@ async function boot(): Promise<void> {
 
   // Quiet entrance: the landscape is already there (poster), the words arrive.
   if (!reducedMotion) {
-    gsap.from('.dx-head > *', { opacity: 0, y: 14, duration: 1.4, ease: 'power2.out', stagger: 0.12, delay: 0.2 });
+    // The headline is visible from the first frame (it is the largest paint); the rest follows.
+    gsap.from('.dx-head > :not(.dx-title)', { opacity: 0, y: 14, duration: 1.4, ease: 'power2.out', stagger: 0.12, delay: 0.3 });
     gsap.from('.dx-markers, .dx-rail, .dx-index, .dx-soundwrap', { opacity: 0, duration: 1.6, delay: 0.9, clearProps: 'opacity' });
   }
   initScrollReveals(reducedMotion);
