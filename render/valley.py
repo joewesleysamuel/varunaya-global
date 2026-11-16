@@ -414,8 +414,9 @@ while placed < 1100:
 near = 0
 while near < 260:
     side = rng.choice([-1, 1])
-    x = side * rng.uniform(13, 36)
-    y = rng.uniform(-3, 12)
+    # Kept back from the 13 mm lens so the edge pines read as trees, not slabs.
+    x = side * rng.uniform(16, 40)
+    y = rng.uniform(6, 18)
     z = height_at(x, y)
     if z < 0.12:
         continue
