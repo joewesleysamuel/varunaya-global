@@ -126,7 +126,7 @@ export const heroConfig = {
       name: 'Stillness',
       altitude: 2600,
       lines: ['Where the river slows to almost silence,', 'it learns to hold the light.'],
-      marker: { desktop: [51.5, 54.0], mobile: [65.4, 45.6] },
+      marker: { desktop: [52.5, 51.2], mobile: [65.4, 45.6] },
       media: {
         desktop: { poster: `${IMG}/chapter-04-stillness.webp`, video: null },
         mobile: { poster: `${IMG}/chapter-04-stillness.webp`, video: null },
