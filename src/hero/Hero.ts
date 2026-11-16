@@ -252,7 +252,8 @@ export class Hero {
       this.bottle.querySelectorAll('img').forEach((img) => {
         if (img.getAttribute('src') !== b.src) img.src = b.src;
       });
-      this.bottle.style.setProperty('--bottle-mask', `url("${b.src}")`);
+      // Resolve against the page: a url() inside a CSS variable resolves against the stylesheet.
+      this.bottle.style.setProperty('--bottle-mask', `url("${new URL(b.src, document.baseURI).href}")`);
     }
   }
 
