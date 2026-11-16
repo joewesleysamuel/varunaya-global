@@ -37,8 +37,8 @@ Put files in `public/assets/hero/video/`, `public/assets/hero/audio/` and `publi
 
 | File | Spec | Config slot |
 | --- | --- | --- |
-| `video/hero-master-desktop.mp4` + `.webm` | 16:9, 2560x1440, 24fps, 20 to 30s seamless loop, H.264 CRF 20 and VP9, no audio, under 12 MB, locked-off camera | `master.desktop.video` |
-| `video/hero-master-mobile.mp4` + `.webm` | 9:16, 1080x1920, same scene with peak, river and lake stacked, under 8 MB | `master.mobile.video` |
+| `video/hero-master-desktop.mp4` + `.webm` | DONE (Gemini clip, 1280x720, made into a 20s forward-and-back loop). For final launch, a 2560x1440 version would be sharper on large screens. Note: the visible Gemini watermark is still in the bottom-right corner. | `master.desktop.video` |
+| `video/hero-master-mobile.mp4` + `.webm` | DONE (406x720 crop of the Gemini clip centred on the peak). A native 9:16 generation at 1080x1920 would be sharper. | `master.mobile.video` |
 | `img/hero-poster-desktop.webp`, `img/hero-poster-mobile.webp` | First frame of each master clip, under 250 KB (currently the Blender stills) | `master.*.poster` |
 | `video/chapter-01-peak.mp4` to `video/chapter-05-vessel.mp4` (+ `.webm`) | 16:9 close ups, 1920x1080, 10 to 15s seamless loops, under 5 MB each, plus 9:16 mobile versions | `chapters[n].media.*.video` |
 | `img/chapter-01-peak.webp` to `img/chapter-05-vessel.webp` | First frame of each close up (currently the Blender stills) | `chapters[n].media.*.poster` |

@@ -37,12 +37,13 @@ export const heroConfig = {
   grade: 'grayscale(0.82) contrast(1.06) brightness(0.94)',
 
   frame: {
-    desktop: { width: 2560, height: 1440 },
-    mobile: { width: 1080, height: 1920 },
+    // Gemini master clip: 1280x720, and a 406x720 crop of it centred on the peak for phones.
+    desktop: { width: 1280, height: 720 },
+    mobile: { width: 406, height: 720 },
   },
   master: {
-    desktop: { poster: `${IMG}/hero-poster-desktop.webp`, video: null } as MediaSlot,
-    mobile: { poster: `${IMG}/hero-poster-mobile.webp`, video: null } as MediaSlot,
+    desktop: { poster: `${IMG}/hero-poster-desktop.webp`, video: ['/assets/hero/video/hero-master-desktop.mp4', '/assets/hero/video/hero-master-desktop.webm'] } as MediaSlot,
+    mobile: { poster: `${IMG}/hero-poster-mobile.webp`, video: ['/assets/hero/video/hero-master-mobile.mp4', '/assets/hero/video/hero-master-mobile.webm'] } as MediaSlot,
   },
   /** White mist on pure black, blended with screen. null uses the built-in canvas mist. */
   mistVideo: null as [string, string] | null,
@@ -50,7 +51,7 @@ export const heroConfig = {
   bottle: {
     src: `${IMG}/bottle.webp`,
     /** Where the bottle's base sits (% of the frame), its height (% of viewport height), and whether it shows. */
-    desktop: { base: [60.2, 64.4] as [number, number], heightVh: 34, show: true },
+    desktop: { base: [70.7, 78.6] as [number, number], heightVh: 34, show: true }, // on the flat shore stone
     mobile: { base: [63.9, 52.6] as [number, number], heightVh: 24, show: false },
   },
 
@@ -87,7 +88,7 @@ export const heroConfig = {
       name: 'Peak',
       altitude: 5200,
       lines: ['Above the clouds, the years are kept in ice,', 'and time moves only when the sun allows.'],
-      marker: { desktop: [50.2, 17.0], mobile: [50.8, 19.5] },
+      marker: { desktop: [50.4, 20.0], mobile: [50.0, 22.0] },
       media: {
         desktop: { poster: `${IMG}/chapter-01-peak.webp`, video: null },
         mobile: { poster: `${IMG}/chapter-01-peak.webp`, video: null },
@@ -100,7 +101,7 @@ export const heroConfig = {
       name: 'Thaw',
       altitude: 4300,
       lines: ['One warm morning, a single drop lets go,', 'and the long walk to the valley begins.'],
-      marker: { desktop: [36.4, 45.7], mobile: [24.0, 40.9] },
+      marker: { desktop: [53.1, 40.3], mobile: [58.6, 40.3] },
       media: {
         desktop: { poster: `${IMG}/chapter-02-thaw.webp`, video: null },
         mobile: { poster: `${IMG}/chapter-02-thaw.webp`, video: null },
@@ -113,7 +114,7 @@ export const heroConfig = {
       name: 'Stone',
       altitude: 3400,
       lines: ['Through granite and slow, dark centuries,', 'the water gathers what the mountain gives.'],
-      marker: { desktop: [40.9, 48.6], mobile: [32.7, 42.7] },
+      marker: { desktop: [35.5, 51.7], mobile: [29.0, 48.5] },
       media: {
         desktop: { poster: `${IMG}/chapter-03-stone.webp`, video: null },
         mobile: { poster: `${IMG}/chapter-03-stone.webp`, video: null },
@@ -126,7 +127,7 @@ export const heroConfig = {
       name: 'Stillness',
       altitude: 2600,
       lines: ['Where the river slows to almost silence,', 'it learns to hold the light.'],
-      marker: { desktop: [52.5, 51.2], mobile: [65.4, 45.6] },
+      marker: { desktop: [58.0, 63.0], mobile: [51.0, 52.5] },
       media: {
         desktop: { poster: `${IMG}/chapter-04-stillness.webp`, video: null },
         mobile: { poster: `${IMG}/chapter-04-stillness.webp`, video: null },
@@ -139,7 +140,7 @@ export const heroConfig = {
       name: 'Vessel',
       altitude: 1800,
       lines: ['Sealed close to the source, untouched by hurry,', 'the mountain arrives in your hand.'],
-      marker: { desktop: [65.5, 61.5], mobile: [50.0, 47.8] },
+      marker: { desktop: [64.5, 76.0], mobile: [85.7, 51.7] },
       media: {
         desktop: { poster: `${IMG}/chapter-05-vessel.webp`, video: null },
         mobile: { poster: `${IMG}/chapter-05-vessel.webp`, video: null },

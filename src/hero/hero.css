@@ -747,7 +747,22 @@
   .dx-head {
     left: 24px;
     right: 24px;
-    bottom: 13vh;
+    bottom: 10vh;
+  }
+  .dx-eyebrow {
+    font-size: 10.5px;
+  }
+  .dx-sub {
+    margin-top: 0.9rem;
+  }
+  .dx-actions {
+    margin-top: 1.25rem;
+    gap: 1.25rem;
+    flex-wrap: nowrap;
+  }
+  .dx-begin {
+    padding: 0.75rem 1.25rem;
+    white-space: nowrap;
   }
   .dx-title {
     font-size: clamp(44px, 12vw, 64px);
